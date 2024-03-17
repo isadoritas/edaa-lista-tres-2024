@@ -3,6 +3,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
@@ -32,5 +33,40 @@ public class Main {
     for (Pessoa pessoa : listaPessoas) {
       System.out.println("Nome: " + pessoa.getNome() + ", " + "Idade: " + pessoa.getIdade());
     }
+    
+    Scanner scanner = new Scanner(System.in);
+    List<String> names = new ArrayList<>();
+
+    System.out.println("Quantos nomes você deseja inserir?");
+    int n = scanner.nextInt();
+    scanner.nextLine();  // Consume newline left-over
+
+    for (int i = 0; i < n; i++) {
+        System.out.println("Insira o nome " + (i+1) + ":");
+        String name = scanner.nextLine();
+        int j = i - 1;
+
+        while (j >= 0 && names.get(j).compareTo(name) > 0) {
+            if (j + 1 == names.size()) {
+                names.add(names.get(j));
+            } else {
+                names.set(j + 1, names.get(j));
+            }
+            j--;
+        }
+
+        if (j + 1 == names.size()) {
+            names.add(name);
+        } else {
+            names.set(j + 1, name);
+        }
+    }
+
+    System.out.println("Nomes ordenados:");
+    for (String name : names) {
+        System.out.println(name);
+    }
+
+    scanner.close();
   }
 }
